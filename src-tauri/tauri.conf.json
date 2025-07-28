@@ -12,10 +12,14 @@
   "app": {
     "windows": [
       {
-        "title": "ready-to-deploy-app",
-        "width": 800,
-        "height": 600,
-        "resizable": true,
+        "title": "Ready To Deploy",
+        "width": 1100,
+        "height": 800,
+        "minWidth": 960,
+        "minHeight": 600,
+        "maxWidth": 1100,
+        "maxHeight": 800,
+        "resizable": false,
         "fullscreen": false
       }
     ],

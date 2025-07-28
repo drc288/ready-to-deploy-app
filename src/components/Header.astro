@@ -1,0 +1,105 @@
+---
+---
+<style>
+.header {
+  display: flex;
+  align-items: center;
+  white-space: pre;
+  color: #e5e7eb;
+  background: #18181b;
+}
+
+.rocket {
+  display: flex;
+  flex-direction: column;
+  padding-left: 4rem;
+  align-items: center;
+  animation: float-rotated 2.7s ease-in-out infinite;
+}
+
+.flames {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: -6px;
+  gap: 2px;
+}
+
+.flame {
+  color: #ef4444;
+  font-weight: bold;
+  font-size: 1.25rem;
+  text-align: center;
+  animation: flicker 0.45s alternate infinite;
+  opacity: 1;
+}
+
+.flame:nth-child(2) {
+  animation-delay: 0.22s;
+}
+
+@keyframes float-rotated {
+  0%, 100% { transform: rotate(45deg) translateY(0); }
+  50%      { transform: rotate(45deg) translateY(-9px);}
+}
+
+@keyframes flicker {
+  0% { opacity: 1; }
+  60% { opacity: 0.55; }
+  100% { opacity: 1; }
+}
+
+.title {
+  color: #10b981;
+  animation: fadeIn 1.3s cubic-bezier(0.22, 1, 0.36, 1);
+  margin-left: 7rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(18px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+
+.v-flame {
+  display: inline-block;
+  color: #ef4444;
+  font-weight: bold;
+  animation: v-bounce 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes v-bounce {
+  0%   { transform: translateY(0); opacity: 0.8; }
+  100% { transform: translateY(4px); opacity: 1; }
+}
+</style>
+
+<div class="header">
+  <div class="rocket">
+    <pre>
+     /\
+    |==|
+    |  |
+    |  |
+   /____\
+   |    |
+   |    |
+   |____|
+   | || |
+   |_||_|
+    /__\
+   | || |
+    <span class="v-flame">V</span>  <span class="v-flame">V</span>
+    </pre>
+  </div>
+  <div class="title">
+    <pre>
+  ____                _         _____       ____             _             
+ |  _ \ ___  __ _  __| |_   _  |_   _|__   |  _ \  ___ _ __ | | ___  _   _ 
+ | |_) / _ \/ _` |/ _` | | | |   | |/ _ \  | | | |/ _ \ '_ \| |/ _ \| | | |
+ |  _ |  __/ (_| | (_| | |_| |   | | (_) | | |_| |  __/ |_) | | (_) | |_| |
+ |_| \_\___|\__,_|\__,_|\__, |   |_|\___/  |____/ \___| .__/|_|\___/ \__, |
+                         |___/                         |_|            |___/
+    </pre>
+  </div>
+</div>

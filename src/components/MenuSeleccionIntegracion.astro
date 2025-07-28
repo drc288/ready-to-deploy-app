@@ -1,0 +1,86 @@
+---
+// No necesitas lógica aquí, todo es Vanilla JS + HTML
+---
+
+<style>
+.menu-container {
+  display: flex;
+  height: 300px;
+  border-radius: 14px;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+.menu-left {
+  flex: 1 1 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4rem;
+  align-items: flex-start;
+  padding-left: 2rem;
+}
+
+.menu-option {
+  font-size: 2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+  user-select: none;
+}
+.menu-option:hover, .menu-option.active {
+  color: #0070f3;
+}
+
+.menu-right {
+  flex: 1 1 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2.5rem;
+  min-height: 300px;
+  position: relative;
+}
+
+/* Fade-in animation */
+.fade-in {
+  animation: fadeIn 0.35s forwards;
+}
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+</style>
+
+<div class="menu-container">
+  <div class="menu-left">
+    <div class="menu-option" 
+      onmouseenter="showContent('integration')" 
+      onmouseleave="hideContent()"
+    >
+      Platform Integration
+    </div>
+    <div class="menu-option" 
+      onmouseenter="showContent('deploy')" 
+      onmouseleave="hideContent()"
+    >
+      Fast Deploy
+    </div>
+  </div>
+  <div class="menu-right">
+    <div id="content-fadein"></div>
+  </div>
+</div>
+
+<script is:inline>
+  const contents = {
+    integration: "Integra tu producto fácilmente con múltiples plataformas. Automatiza flujos y conecta servicios con un solo click.",
+    deploy: "Despliega tus automatizaciones en minutos. Sin fricción, sin complejidad técnica, solo velocidad y eficiencia."
+  };
+  function showContent(key) {
+    const content = document.getElementById("content-fadein");
+    content.innerHTML = `<p class="fade-in" style="font-size:1.45rem;line-height:1.7;">${contents[key]}</p>`;
+  }
+  function hideContent() {
+    document.getElementById("content-fadein").innerHTML = "";
+  }
+</script>
