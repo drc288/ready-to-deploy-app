@@ -5,10 +5,15 @@
 <style>
 .menu-container {
   display: flex;
-  height: 300px;
-  border-radius: 14px;
+  height: 350px;
+  border-radius: 12px;
   overflow: hidden;
   font-family: 'Inter', sans-serif;
+  background: linear-gradient(to bottom right, #1a1b26, #24283b);
+  border: 1px solid #30374b;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  margin: 1.5rem auto;
+  max-width: 1000px;
 }
 
 .menu-left {
@@ -16,20 +21,47 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 4rem;
+  gap: 3rem;
   align-items: flex-start;
-  padding-left: 2rem;
+  padding-left: 2.5rem;
+  position: relative;
+  border-right: 1px solid #30374b;
+  background: rgba(26, 27, 38, 0.6);
 }
 
 .menu-option {
-  font-size: 2rem;
-  font-weight: 500;
+  font-size: 1.4rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: all 0.3s ease;
   user-select: none;
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  color: #a9b1d6;
+  position: relative;
+  width: 90%;
 }
+
+.menu-option:before {
+  content: '>';
+  color: #7aa2f7;
+  margin-right: 0.7rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
 .menu-option:hover, .menu-option.active {
-  color: #0070f3;
+  color: #c0caf5;
+  background: rgba(122, 162, 247, 0.1);
+  transform: translateX(5px);
+}
+
+.menu-option:hover:before, .menu-option.active:before {
+  opacity: 1;
+  margin-right: 0.7rem;
 }
 
 .menu-right {
@@ -40,47 +72,131 @@
   padding: 0 2.5rem;
   min-height: 300px;
   position: relative;
+  background: rgba(36, 40, 59, 0.4);
 }
 
 /* Fade-in animation */
 .fade-in {
-  animation: fadeIn 0.35s forwards;
+  animation: fadeIn 0.45s forwards;
+  opacity: 0;
 }
+
 @keyframes fadeIn {
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.content-container {
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 8px;
+  position: relative;
+}
+
+.content-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #7aa2f7;
+  display: flex;
+  align-items: center;
+}
+
+.content-title svg {
+  margin-right: 0.8rem;
+}
+
+.content-description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #c0caf5;
+  margin-bottom: 1.2rem;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tech-tag {
+  background: rgba(122, 162, 247, 0.15);
+  color: #7aa2f7;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 </style>
 
 <div class="menu-container">
   <div class="menu-left">
     <div class="menu-option" 
-      onmouseenter="showContent('integration')" 
-      onmouseleave="hideContent()"
-    >
-      Platform Integration
-    </div>
-    <div class="menu-option" 
-      onmouseenter="showContent('deploy')" 
-      onmouseleave="hideContent()"
+      onclick="showContent('fast-deploy')" 
+      id="option-fast-deploy"
     >
       Fast Deploy
     </div>
+    <div class="menu-option" 
+      onclick="showContent('platform-integration')"
+      id="option-platform-integration" 
+    >
+      Integración de Plataformas
+    </div>
   </div>
   <div class="menu-right">
-    <div id="content-fadein"></div>
+    <div id="content-fadein" class="content-container"></div>
   </div>
 </div>
 
 <script is:inline>
+  // Definición de contenido DevOps
   const contents = {
-    integration: "Integra tu producto fácilmente con múltiples plataformas. Automatiza flujos y conecta servicios con un solo click.",
-    deploy: "Despliega tus automatizaciones en minutos. Sin fricción, sin complejidad técnica, solo velocidad y eficiencia."
+    'fast-deploy': {
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>',
+      title: 'Fast Deploy',
+      description: 'Despliega aplicaciones y servicios en cuestión de minutos, no de horas. Automatiza todo el proceso de despliegue para maximizar eficiencia y reducir errores humanos.',
+      tags: ['Docker', 'Kubernetes', 'GitHub Actions', 'ArgoCD', 'Vercel']
+    },
+    'platform-integration': {
+      icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>',
+      title: 'Integración de Plataformas',
+      description: 'Conecta tus herramientas y servicios sin fisuras. Centraliza la gestión de múltiples plataformas en un solo lugar para optimizar flujos de trabajo y mejorar la colaboración.',
+      tags: ['APIs', 'Webhooks', 'Microservicios', 'Cloud Services', 'Event Streaming']
+    }
   };
+
+  // Mostrar un contenido por defecto al cargar
+  window.addEventListener('DOMContentLoaded', () => {
+    showContent('fast-deploy');
+  });
+
   function showContent(key) {
+    // Eliminar clase active de todas las opciones
+    document.querySelectorAll('.menu-option').forEach(el => {
+      el.classList.remove('active');
+    });
+    
+    // Añadir clase active a la opción seleccionada
+    document.getElementById(`option-${key}`).classList.add('active');
+    
     const content = document.getElementById("content-fadein");
-    content.innerHTML = `<p class="fade-in" style="font-size:1.45rem;line-height:1.7;">${contents[key]}</p>`;
-  }
-  function hideContent() {
-    document.getElementById("content-fadein").innerHTML = "";
+    const data = contents[key];
+    
+    // Construir HTML con el nuevo formato
+    content.innerHTML = `
+      <div class="fade-in">
+        <div class="content-title">
+          ${data.icon}
+          ${data.title}
+        </div>
+        <p class="content-description">${data.description}</p>
+        <div class="tech-tags">
+          ${data.tags.map(tag => `<span class="tech-tag">${tag}</span>`).join('')}
+        </div>
+      </div>
+    `;
   }
 </script>
